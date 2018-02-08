@@ -6,6 +6,7 @@ open System.Data.Linq
 open System.Linq
 
  module Crud = 
+    open System.Data.Common
 
     let db = DbConnection.DbSchema.GetDataContext()
 //    let tStock = DbConnection.DbSchema.ServiceTypes.Stock
@@ -36,7 +37,11 @@ open System.Linq
         }    
         |> Seq.toList
         |> Set.ofList
-
+    let getStocksLastBusinessDay = 
+        query { 
+            for lastStockHistory in db.LastStockHistory do 
+                select lastStockHistory
+        }    
 
     let overwriteStock (newStockValue : DbConnection.DbSchema.ServiceTypes.Stock) = 
         let foundStockMayBe = query {
@@ -196,8 +201,15 @@ open System.Linq
         let MSFT = getStock ("MSFT")
         printfn "getStock returns: %A" MSFT   
 
-
-
         deleteStock stock
 //        Console.ReadLine() |> ignore
+
+           
+        getStocksLastBusinessDay
+        |> Seq.iter (fun row ->  
+            printfn "stock %s %O " row.StockID row.LastBusinessDay
+        )
+
+
+
         0 // return an integer exit code

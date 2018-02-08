@@ -45,6 +45,22 @@ let validateDb =
             --    ON DELETE CASCADE \n\
             --    ON UPDATE CASCADE \n\
 			)\n\
+    end; \n\
+    IF OBJECT_ID (N'dbo.LastStockHistory', N'U') IS NOT NULL\n\
+        BEGIN \n\
+        print 'view exists';\n\
+--          drop view dbo.LastStockHistory;\n\
+      END \n\
+    else \n\
+      begin \n\
+          print 'view LastStockHistory not found create new!' \n\
+         CREATE VIEW LastStockHistory AS \n\
+            SELECT  \n\
+                Stock.StockID,  \n\
+                    COALESCE(MAX(History.BusinessDate), DATEADD(DAY, -30, GETDATE())) as LastBusinessDay  \n\
+            FROM Stock  \n\
+            LEFT OUTER JOIN History ON Stock.StockID = History.StockID  \n\
+            GROUP BY Stock.StockID  \n\
       end;"
 
 [<EntryPoint>]
