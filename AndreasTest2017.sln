@@ -3,10 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "DataProviderMock", "AndreasTest2017\DataProviderMock.fsproj", "{8595FDC7-61BA-48BA-8D7F-D936060B0A33}"
-EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "DataCollector", "ConsoleApplication1\DataCollector.fsproj", "{82AFC589-3445-43AE-8151-E460A026827C}"
-EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ValidateOrCreateDb", "ValidateOrCreateDb\ValidateOrCreateDb.fsproj", "{66066670-80EE-4959-B088-B8BC8356AA66}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "CRUD", "CRUD\CRUD.fsproj", "{FB6708CF-572D-4931-8B61-5FB8A05EDC12}"
@@ -17,20 +13,14 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "DbConnection", "DbConnectio
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FinanceYahooMock", "FinanceYahooMock\FinanceYahooMock.fsproj", "{BB0ECB3C-80D4-4B9D-9ACD-4E298FBB9836}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "DataCollector", "DataCollector\DataCollector.fsproj", "{4D0E27B3-02AC-49BC-9B41-8BB1E8A1B00E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8595FDC7-61BA-48BA-8D7F-D936060B0A33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8595FDC7-61BA-48BA-8D7F-D936060B0A33}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8595FDC7-61BA-48BA-8D7F-D936060B0A33}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8595FDC7-61BA-48BA-8D7F-D936060B0A33}.Release|Any CPU.Build.0 = Release|Any CPU
-		{82AFC589-3445-43AE-8151-E460A026827C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{82AFC589-3445-43AE-8151-E460A026827C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{82AFC589-3445-43AE-8151-E460A026827C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{82AFC589-3445-43AE-8151-E460A026827C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{66066670-80EE-4959-B088-B8BC8356AA66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{66066670-80EE-4959-B088-B8BC8356AA66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66066670-80EE-4959-B088-B8BC8356AA66}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,6 +41,10 @@ Global
 		{BB0ECB3C-80D4-4B9D-9ACD-4E298FBB9836}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB0ECB3C-80D4-4B9D-9ACD-4E298FBB9836}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB0ECB3C-80D4-4B9D-9ACD-4E298FBB9836}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D0E27B3-02AC-49BC-9B41-8BB1E8A1B00E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D0E27B3-02AC-49BC-9B41-8BB1E8A1B00E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D0E27B3-02AC-49BC-9B41-8BB1E8A1B00E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D0E27B3-02AC-49BC-9B41-8BB1E8A1B00E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

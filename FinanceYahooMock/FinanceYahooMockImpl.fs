@@ -16,7 +16,6 @@ let main argv =
       choose [
         GET >=> path "/" >=> Files.file "index.html"
         GET >=> Files.browseHome
-        //GET >=> path "/v7/finance/download/" >=> Files.browseHome
         RequestErrors.NOT_FOUND "Page not found." 
       ]
   let mimeTypes =
