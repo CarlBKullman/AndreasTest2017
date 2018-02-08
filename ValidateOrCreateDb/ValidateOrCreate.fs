@@ -7,6 +7,7 @@ open System.Linq
 //open Microsoft.FSharp.Linq
 open DbConnection
 [<Literal>]
+//LastStockHistory is default -30 days from now. chage view definition when needed.
 let validateDb = 
         "IF OBJECT_ID (N'dbo.Stock', N'U') IS NOT NULL\n\
         BEGIN \n\

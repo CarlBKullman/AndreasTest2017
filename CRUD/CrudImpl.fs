@@ -37,6 +37,8 @@ open System.Linq
         }    
         |> Seq.toList
         |> Set.ofList
+
+     //LastStockHistory is default -30 days from now. chage view definition when needed.
     let getStocksLastBusinessDay = 
         query { 
             for lastStockHistory in db.LastStockHistory do 
