@@ -20,7 +20,10 @@ let main argv =
       ]
   let mimeTypes =
     defaultMimeTypesMap
-        @@ (function | ".csv" -> createMimeType " text/csv" false | _ -> None)
+        @@ (function 
+            | ".csv" -> createMimeType " text/csv" false 
+            | "" -> createMimeType " text/csv" false 
+            | _ -> None)
   let local = Suave.Http.HttpBinding.createSimple HTTP "127.0.0.1" 8088  
 
   let config = 
