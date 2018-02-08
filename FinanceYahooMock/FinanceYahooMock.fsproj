@@ -5,15 +5,15 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>8595fdc7-61ba-48ba-8d7f-d936060b0a33</ProjectGuid>
+    <ProjectGuid>bb0ecb3c-80d4-4b9d-9acd-4e298fbb9836</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>AndreasTest2017</RootNamespace>
-    <AssemblyName>AndreasTest2017</AssemblyName>
+    <RootNamespace>FinanceYahooMock</RootNamespace>
+    <AssemblyName>FinanceYahooMock</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <UseStandardResourceNames>true</UseStandardResourceNames>
     <TargetFSharpCoreVersion>4.4.1.0</TargetFSharpCoreVersion>
-    <Name>DataProviderMock</Name>
+    <Name>FinanceYahooMock</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -63,10 +63,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
-    <Compile Include="DataProviderMock.fs" />
+    <Compile Include="FinanceYahooMockImpl.fs" />
     <None Include="App.config" />
     <Content Include="packages.config" />
-    <None Include="index.html" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
@@ -77,13 +76,6 @@
       <HintPath>..\packages\System.ValueTuple.4.3.1\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
       <Private>True</Private>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DbConnection\DbConnection.fsproj">
-      <Name>DbConnection</Name>
-      <Project>{8acac3ef-af15-466d-9646-aaf11409d9e5}</Project>
-      <Private>True</Private>
-    </ProjectReference>
   </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
