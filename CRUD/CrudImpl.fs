@@ -8,21 +8,35 @@ open System.Linq
  module Crud = 
 
     let db = AndreasCommon.DbSchema.GetDataContext()
-    let tStock = AndreasCommon.DbSchema.ServiceTypes.Stock
+//    let tStock = AndreasCommon.DbSchema.ServiceTypes.Stock
 
     let getAllStocks = 
+        query { for row in db.Stock do
+                 select row
+        }    
+
+    let getStock stockId = 
+        query { for row in db.Stock do
+                where ( row.StockID.Equals stockId )
+                select row
+                headOrDefault
+        }
+
+    let getHistories stockId = 
+        query { 
+            for row in db.History do 
+            where ( row.StockID.Equals stockId )
+            select row
+        }
+
+
+    let getAllStockIds = 
         query { for row in db.Stock do
                  select row.StockID
         }    
         |> Seq.toList
         |> Set.ofList
 
-    let getStock stockId = 
-        query { for row in db.Stock do
-                where ( row.StockID.Equals stockId )
-                select row
-        }    
-        |> Seq.head
 
     let overwriteStock (newStockValue : AndreasCommon.DbSchema.ServiceTypes.Stock) = 
         let foundStockMayBe = query {
@@ -96,12 +110,6 @@ open System.Linq
         with
         | exn -> printfn "DeleteHistories Exception:\n%s" exn.Message
         
-    let readHistories (stockId) = 
-        query { 
-            for row in db.History do 
-            where ( row.StockID.Equals stockId )
-            select row
-        }
  //test 
     let validate_insert_default_Stocks =
         printfn "validate default Stocks for test\n"
@@ -158,7 +166,7 @@ open System.Linq
         overwriteHistories histories 
         printfn "insertHistories returns:"
 
-        let oldhistories = readHistories "MSFT" 
+        let oldhistories = getHistories "MSFT" 
 
         oldhistories |>  Seq.iter (fun h -> 
                 printfn "reaadHistories: %s %A %i" h.StockID h.BusinessDate h.Volume)
@@ -184,6 +192,12 @@ open System.Linq
         let stock = 
             new AndreasCommon.DbSchema.ServiceTypes.Stock(StockID = "xxx", Name = "yyy") 
         //overwriteStock stock
+
+        let MSFT = getStock ("MSFT")
+        printfn "getStock returns: %A" MSFT   
+
+
+
         deleteStock stock
 //        Console.ReadLine() |> ignore
         0 // return an integer exit code

@@ -39,11 +39,11 @@ let validateDb =
 			ClosePrice   DEC(19,6) NOT NULL DEFAULT 0, \n\
             CloseAdjPrice   DEC(19,6) NOT NULL DEFAULT 0, \n\
 			Volume       INT       NOT NULL DEFAULT 0, \n\
-			PRIMARY KEY (StockID, BusinessDate), \n\
-            CONSTRAINT FK_StockID FOREIGN KEY (StockID) \n\
-                REFERENCES dbo.Stock (StockID) \n\
-                ON DELETE CASCADE \n\
-                ON UPDATE CASCADE \n\
+			PRIMARY KEY (StockID, BusinessDate) \n\
+            --,CONSTRAINT FK_StockID FOREIGN KEY (StockID) \n\
+            --    REFERENCES dbo.Stock (StockID) \n\
+            --    ON DELETE CASCADE \n\
+            --    ON UPDATE CASCADE \n\
 			)\n\
       end;"
 
