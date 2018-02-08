@@ -1,6 +1,5 @@
 ﻿namespace AndreasCommon
 
-//open Microsoft.FSharp.Linq
 open Microsoft.FSharp.Data.TypeProviders
 
 type DbSchema = SqlDataConnection<"Data Source=CARL2013\SQLEXPRESS;Initial Catalog=Andreas;User=Andreas;Password=password;">

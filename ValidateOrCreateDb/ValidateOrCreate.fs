@@ -5,7 +5,7 @@ open System.Linq
 
 //open Microsoft.FSharp.Data.TypeProviders
 //open Microsoft.FSharp.Linq
-open AndreasCommon
+open DbConnection
 [<Literal>]
 let validateDb = 
         "IF OBJECT_ID (N'dbo.Stock', N'U') IS NOT NULL\n\
@@ -51,7 +51,7 @@ let validateDb =
 let main argv = 
     printfn "Ensure Database\n" 
 
-    let db = AndreasCommon.DbSchema.GetDataContext()
+    let db = DbConnection.DbSchema.GetDataContext()
     // Enable the logging of database activity to the console.
     db.DataContext.Log <- System.Console.Out
 

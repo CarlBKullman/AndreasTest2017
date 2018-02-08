@@ -38,7 +38,7 @@ open Suave.Writers
 open Crud
 //{"stockID":"MSFT","name":"Microsoft Corporation"}
 [<DataContract>]
-type Stock = AndreasCommon.DbSchema.ServiceTypes.Stock
+type Stock = DbConnection.DbSchema.ServiceTypes.Stock
    //{ 
    //   [<field: DataMember(Name = "stockID")>]
    //   stockID : string;
@@ -47,17 +47,17 @@ type Stock = AndreasCommon.DbSchema.ServiceTypes.Stock
    //}
 
 [<DataContract>]
-type ResultStock = //AndreasCommon.DbSchema.ServiceTypes.Stock
+type ResultStock = //DbConnection.DbSchema.ServiceTypes.Stock
    { 
       [<field: DataMember(Name = "resultStock")>]
-      resultStock  : AndreasCommon.DbSchema.ServiceTypes.Stock;
+      resultStock  : DbConnection.DbSchema.ServiceTypes.Stock;
    }
 
 [<DataContract>]
 type ResultCompany =
    { 
       [<field: DataMember(Name = "result")>]
-      result : AndreasCommon.DbSchema.ServiceTypes.Stock;
+      result : DbConnection.DbSchema.ServiceTypes.Stock;
    }
 
 [<DataContract>]

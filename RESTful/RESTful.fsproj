@@ -82,14 +82,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\AndreasCommon.fsproj">
-      <Name>AndreasCommon</Name>
-      <Project>{45e8997b-3a77-4397-a3f7-3035b01e8cea}</Project>
-      <Private>True</Private>
-    </ProjectReference>
     <ProjectReference Include="..\CRUD\CRUD.fsproj">
       <Name>CRUD</Name>
       <Project>{fb6708cf-572d-4931-8b61-5fb8a05edc12}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\DbConnection\DbConnection.fsproj">
+      <Name>DbConnection</Name>
+      <Project>{8acac3ef-af15-466d-9646-aaf11409d9e5}</Project>
       <Private>True</Private>
     </ProjectReference>
   </ItemGroup>

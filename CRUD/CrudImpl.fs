@@ -7,8 +7,8 @@ open System.Linq
 
  module Crud = 
 
-    let db = AndreasCommon.DbSchema.GetDataContext()
-//    let tStock = AndreasCommon.DbSchema.ServiceTypes.Stock
+    let db = DbConnection.DbSchema.GetDataContext()
+//    let tStock = DbConnection.DbSchema.ServiceTypes.Stock
 
     let getAllStocks = 
         query { for row in db.Stock do
@@ -38,7 +38,7 @@ open System.Linq
         |> Set.ofList
 
 
-    let overwriteStock (newStockValue : AndreasCommon.DbSchema.ServiceTypes.Stock) = 
+    let overwriteStock (newStockValue : DbConnection.DbSchema.ServiceTypes.Stock) = 
         let foundStockMayBe = query {
             for row in db.Stock do 
             where ( row.StockID.Equals newStockValue.StockID)
@@ -76,7 +76,7 @@ open System.Linq
         
 
 //History
-    let overwriteHistory (newHistoryValue : AndreasCommon.DbSchema.ServiceTypes.History) = 
+    let overwriteHistory (newHistoryValue : DbConnection.DbSchema.ServiceTypes.History) = 
         let foundHistoryMayBe = query {
             for row in db.History do 
             where ( row.StockID.Equals newHistoryValue.StockID &&
@@ -114,8 +114,8 @@ open System.Linq
     let validate_insert_default_Stocks =
         printfn "validate default Stocks for test\n"
         let defaultRecords = [
-            new AndreasCommon.DbSchema.ServiceTypes.Stock(StockID = "MSFT", Name = "Microsoft Corporation") ;
-            new AndreasCommon.DbSchema.ServiceTypes.Stock(StockID = "INTC", Name = "Intel Corporation")
+            new DbConnection.DbSchema.ServiceTypes.Stock(StockID = "MSFT", Name = "Microsoft Corporation") ;
+            new DbConnection.DbSchema.ServiceTypes.Stock(StockID = "INTC", Name = "Intel Corporation")
             ]
    
         let existingRecords = 
@@ -160,7 +160,7 @@ open System.Linq
 
 ///history    
         let histories = [
-            new AndreasCommon.DbSchema.ServiceTypes.History(StockID = "MSFT", BusinessDate = DateTime.Now) 
+            new DbConnection.DbSchema.ServiceTypes.History(StockID = "MSFT", BusinessDate = DateTime.Now) 
         ]
         
         overwriteHistories histories 
@@ -171,16 +171,16 @@ open System.Linq
         oldhistories |>  Seq.iter (fun h -> 
                 printfn "reaadHistories: %s %A %i" h.StockID h.BusinessDate h.Volume)
 
-       // let db = AndreasCommon.DbSchema.GetDataContext()
+       // let db = DbConnection.DbSchema.GetDataContext()
        
 
         printfn "Overvriew ============ Histories"
         //let oldDate = snd (System.DateTime.TryParse "1-1-2011")
         let _ , oldDate = System.DateTime.TryParse "1-1-2011"
         let histories333 = 
-            new AndreasCommon.DbSchema.ServiceTypes.History(StockID = "MSFT", BusinessDate = oldDate, Volume = 333) 
+            new DbConnection.DbSchema.ServiceTypes.History(StockID = "MSFT", BusinessDate = oldDate, Volume = 333) 
         let histories444 = 
-            new AndreasCommon.DbSchema.ServiceTypes.History(StockID = "INTC", BusinessDate = oldDate, Volume = 333) 
+            new DbConnection.DbSchema.ServiceTypes.History(StockID = "INTC", BusinessDate = oldDate, Volume = 333) 
         overwriteHistory histories333
         printfn "overwriteHistory MSFT returns:"
         overwriteHistory histories444
@@ -190,7 +190,7 @@ open System.Linq
         //| false, _ -> printfn "Failed!"
 
         let stock = 
-            new AndreasCommon.DbSchema.ServiceTypes.Stock(StockID = "xxx", Name = "yyy") 
+            new DbConnection.DbSchema.ServiceTypes.Stock(StockID = "xxx", Name = "yyy") 
         //overwriteStock stock
 
         let MSFT = getStock ("MSFT")
