@@ -1,17 +1,42 @@
-﻿module DataCollector
-    open System
-    open System.Net 
-    open System.Text 
-    open System.Web
-    open System.IO
-    open System.Security.Authentication 
-    open System.Runtime.Serialization // needs system.runtime.serialization; system.xml
+﻿namespace DataCollector
+open System
+open System.Net 
+open System.Text 
+open System.Web
+open System.IO
+open System.Security.Authentication 
+open System.Runtime.Serialization // needs system.runtime.serialization; system.xml
+open FSharp.Data
+
+//type YahooPrice = {
+////        yahooSymbol : string ;
+//        day: string ;
+//        openPrice: float ;
+//        closePrice: float ;
+//        highPrice: float ;
+//        lowPrice: float ;
+//        adjustedClosePrice: float;
+//        volume: float;
+//}
+    
 
 
+
+module DataCollector = 
+
+    //let msft = CsvFile.Load("http://www.google.com/finance/historical?q=MSFT&output=csv").Cache()
+
+    let msft = CsvFile.Load("http://127.0.0.1:8088/v7/finance/download/INTC.csv").Cache()
+
+    // Print the prices in the HLOC format
+    for row in msft.Rows do
+      printfn "HLOC: (%s, %s, %s)" 
+        (row.GetColumn "High") (row.GetColumn "Low") (row.GetColumn "Date")
           
 //use datacontract defintiion of the record for serialization.
-    [<DataContract>] 
-    type YahooPrice = {
+(*
+[<DataContract>] 
+type YahooPrice = {
         [<field: DataMember(Name="yahooSymbol") >] 
         yahooSymbol : string ;
 
@@ -36,24 +61,9 @@
         [<field: DataMember(Name="volume") >] 
         volume: float;
 
-    }
+}
  
- (*
-    type YahooPrice = {
-        yahooSymbol : string ;
-        day: string ;
-        openPrice: float ;
-        closePrice: float ;
-        highPrice: float ;
-        lowPrice: float ;
-        adjustedClosePrice: float;
-        volume: float;
-    }
-    *)
-    type YahooRequest = {
-        day: string;
-        ticker: string ;
-    }
+ 
 
     exception BadResults of string * string
 
@@ -106,3 +116,4 @@
 
 
     let valu = historicalQuote {day="2010/04/26"; ticker="MSFT";}
+    *)
