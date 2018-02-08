@@ -58,7 +58,14 @@ let validateDb =
          CREATE VIEW LastStockHistory AS \n\
             SELECT  \n\
                 Stock.StockID,  \n\
-                    COALESCE(MAX(History.BusinessDate), DATEADD(DAY, -30, GETDATE())) as LastBusinessDay  \n\
+                    COALESCE(MAX(History.BusinessDate), DATEADD(DAY, -30, GETDATE())) as LastBusinessDay,  \n\
+                    DATEDIFF(S,   \n\
+			                    '1970-01-01',   \n\
+			                    COALESCE(  \n\
+				                    MAX(History.BusinessDate),   \n\
+				                    DATEADD(DAY, -30, GETDATE())  \n\
+			                    )  \n\
+                    ) AS SecondsSinceEpoch  \n\
             FROM Stock  \n\
             LEFT OUTER JOIN History ON Stock.StockID = History.StockID  \n\
             GROUP BY Stock.StockID  \n\
