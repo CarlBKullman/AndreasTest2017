@@ -27,6 +27,7 @@ open System.Linq
         query { 
             for row in db.History do 
             where ( row.StockID.Equals stockId )
+            sortBy row.BusinessDate 
             select row
         }
 
@@ -181,17 +182,17 @@ open System.Linq
        // let db = DbConnection.DbSchema.GetDataContext()
        
 
-        printfn "Overvriew ============ Histories"
-        //let oldDate = snd (System.DateTime.TryParse "1-1-2011")
-        let _ , oldDate = System.DateTime.TryParse "1-1-2011"
-        let histories333 = 
-            new DbConnection.DbSchema.ServiceTypes.History(StockID = "MSFT", BusinessDate = oldDate, Volume = 333) 
-        let histories444 = 
-            new DbConnection.DbSchema.ServiceTypes.History(StockID = "INTC", BusinessDate = oldDate, Volume = 333) 
-        overwriteHistory histories333
-        printfn "overwriteHistory MSFT returns:"
-        overwriteHistory histories444
-        printfn "overwriteHistory INTC returns" 
+        //printfn "Overvriew ============ Histories"
+        ////let oldDate = snd (System.DateTime.TryParse "1-1-2011")
+        //let _ , oldDate = System.DateTime.TryParse "1-1-2011"
+        //let histories333 = 
+        //    new DbConnection.DbSchema.ServiceTypes.History(StockID = "MSFT", BusinessDate = oldDate, Volume = 333) 
+        //let histories444 = 
+        //    new DbConnection.DbSchema.ServiceTypes.History(StockID = "INTC", BusinessDate = oldDate, Volume = 333) 
+        //overwriteHistory histories333
+        //printfn "overwriteHistory MSFT returns:"
+        //overwriteHistory histories444
+        //printfn "overwriteHistory INTC returns" 
         //match System.DateTime.TryParse "1-1-2011" with
         //| true, date -> printfn "Success: %A" date
         //| false, _ -> printfn "Failed!"

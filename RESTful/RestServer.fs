@@ -124,16 +124,31 @@ let main argv =
                 path "/stock" >=> JSON (Crud.getAllStocks) 
               GET >=> //http://127.0.0.1:8080/stock/MSFT
                 pathScan "/stock/%s" (fun (stockId) -> JSON (Crud.getStock stockId)) 
+              DELETE >=> //http://127.0.0.1:8080/stock/MSFT
+                pathScan "/stock/%s" (fun (stockId) -> Crud.deleteStock (Crud.getStock stockId); OK "") 
+              POST >=> 
+                path "/stock" >=> (mapJson (fun (stock:Stock) -> { resultStock = (Crud.getStock stock.StockID) }))
+              //PUT >=> 
+              //  pathScan "/stock/%s" >=> (mapJson (fun (stock:Stock) -> { resultStock = (Crud.getStock stock.StockID) }))
+
               GET >=> //http://127.0.0.1:8080/history/MSFT 
                 pathScan "/history/%s" (fun (stockId) -> JSON (Crud.getHistories stockId)) 
-              POST >=> 
-                path "/addstock" >=> (mapJson (fun (stock:Stock) -> { resultStock = (Crud.getStock stock.StockID) }))
+
             ] >=> Writers.setMimeType "application/json; charset=utf-8"
+
+
+
+
     let MSFT = Crud.getStock "MSFT"
 //    startWebServer defaultConfig (mapJson (fun (calc:Calc) -> { result = calc.a + calc.b }))
 //    startWebServer defaultConfig (mapJson (fun (stock:Stock) -> { resultStock = MSFT}))
 //    startWebServer defaultConfig (mapJson (fun (calc:Calc) -> { resultStock = (Crud.getStock "MSFT")}))
     startWebServer defaultConfig (mapJson (fun (stock:Stock) -> { resultStock = (Crud.getStock stock.StockID )}))
+
+      //POST >>= choose
+      //      [ path "/todos" >>= request (fun req -> add (req.formData "text") ; OK "") ]
+      //    DELETE >>= choose
+      //      [ pathScan "/todos/%d" (fun (id) -> remove id ; OK "") ]       
 
 
 //    startWebServer config app
