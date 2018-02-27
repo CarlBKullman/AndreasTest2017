@@ -4,10 +4,10 @@ open System
 open System.Data
 open System.Data.Linq
 open System.Linq
+open System.Data.Common
 
  module Crud = 
-    open System.Data.Common
-
+    
     let db = DbConnection.DbSchema.GetDataContext()
 //    let tStock = DbConnection.DbSchema.ServiceTypes.Stock
 

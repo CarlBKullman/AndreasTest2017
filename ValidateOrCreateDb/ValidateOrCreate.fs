@@ -9,7 +9,7 @@ open DbConnection
 let validateDb = 
         "IF OBJECT_ID (N'dbo.Stock', N'U') IS NOT NULL\n\
         BEGIN \n\
-        print 'table History exists';\n\
+        print 'table Stock exists';\n\
 --          drop table dbo.Stock;\n\
       END \n\
     else \n\
@@ -23,7 +23,7 @@ let validateDb =
       end; \n\
     IF OBJECT_ID (N'dbo.History', N'U') IS NOT NULL\n\
         BEGIN \n\
-        print 'table exists';\n\
+        print 'table History exists';\n\
 --          drop table dbo.History;\n\
       END \n\
     else \n\
@@ -43,6 +43,23 @@ let validateDb =
             --    REFERENCES dbo.Stock (StockID) \n\
             --    ON DELETE CASCADE \n\
             --    ON UPDATE CASCADE \n\
+			)\n\
+    end; \n\
+    IF OBJECT_ID (N'dbo.Albums', N'U') IS NOT NULL\n\
+        BEGIN \n\
+        print 'table Albums exists';\n\
+--          drop table dbo.Albums;\n\
+      END \n\
+    else \n\
+      begin \n\
+          print 'table Albums not found create new!' \n\
+		  CREATE TABLE dbo.Albums ( \n\
+                AlbumId INT NOT NULL,     \n\
+                ArtistId INT NOT NULL,   \n\
+                GenreId  INT NOT NULL,  \n\
+                Title NVARCHAR(100) NOT NULL,   \n\
+                Price DEC(19,6) NOT NULL DEFAULT 0 \n\
+        ) \n\
 			)\n\
     end; \n\
     IF OBJECT_ID (N'dbo.LastStockHistory', N'U') IS NOT NULL\n\

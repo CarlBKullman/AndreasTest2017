@@ -10,7 +10,8 @@ let main argv =
     Application.EnableVisualStyles()
     Application.SetCompatibleTextRenderingDefault false
             
-    let stockId = match argv with
+    let stockId = 
+        match argv with
         |  [|first|] -> first
         | _ -> "MSFT"
 
