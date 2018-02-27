@@ -1,19 +1,5 @@
 ﻿open System
-open System.Net
-open System.Drawing
 open System.Windows.Forms
-open System.Windows.Forms.DataVisualization.Charting
-open FSharp.Charting
-open FSharp.Charting
-open Microsoft.FSharp.Control.WebExtensions
-open System.Windows.Forms.DataVisualization.Charting
-open System.Collections
-open System.Drawing
-open System.IO
-open System.Windows.Forms
-open System.Windows.Forms.DataVisualization.Charting
-open System.Windows.Forms.DataVisualization.Charting.Utilities
-open System
 open FSharp.Charting
 open Crud
 
@@ -23,38 +9,48 @@ let main argv =
  
     Application.EnableVisualStyles()
     Application.SetCompatibleTextRenderingDefault false
+            
+    let stockId = match argv with
+        |  [|first|] -> first
+        | _ -> "MSFT"
+
+    printfn "Chart for stock '%s' " stockId 
 
     let hiostories = 
-        Crud.getHistories "MSFT" 
+        Crud.getHistories stockId 
     
-    let min = (hiostories |> Seq.map ( fun r -> r.LowPrice) |> Seq.min) * 0.95m 
-    let max = (hiostories |> Seq.map ( fun r -> r.HighPrice)|> Seq.max) * 1.05m
+    let min = System.Math.Round ((hiostories |> Seq.map ( fun r -> r.LowPrice) |> Seq.min) * 0.98m)
+    let max = System.Math.Round ((hiostories |> Seq.map ( fun r -> r.HighPrice)|> Seq.max) * 1.02m)
+    
+    let minVol = Convert.ToDouble (hiostories |> Seq.map ( fun r -> r.Volume) |> Seq.min) * 0.98 
+    let maxVol = Convert.ToDouble (hiostories |> Seq.map ( fun r -> r.Volume) |> Seq.max) * 1.02
 
-    printfn "min %E max %E" min max
-    //let line = 
-    //    Crud.getHistories "MSFT" 
-    //    |> Seq.map (fun h -> h.BusinessDate, h.ClosePrice)
+    printfn "Stock %s min %E max %E" stockId min max
 
-    //let line = [ for x in 0 .. 10 -> x, x*x ]
-    //let chart = Chart.Line(line)
-
-    // Stock Charts
-    //let prices = hiostories |> Seq.map (fun h -> h.HighPrice, h.LowPrice, h.OpenPrice, h.ClosePrice)
-    //let chart = Chart.Stock(prices)
-    //List.mapi
-
+    //adjust Column chart for volume
+    //min = 20% from price span below
+    let priceSpan = Convert.ToDouble ( max-min )
+    let volumnSpan = Convert.ToDouble (maxVol-minVol)
+    
+    let adjMinVol = min - ( max-min ) /4m
+    //transform volume   v = (v-minVol)*priceSpan/5/volSpan + min
+    let volumeWithDates = hiostories |> Seq.map (fun h -> 
+                                (h.BusinessDate.ToShortDateString(), 
+                                    //h.Volume
+                                    ((Convert.ToDouble h.Volume) - minVol)*priceSpan/ 5.0 / volumnSpan + (Convert.ToDouble min)
+                                ))
+    
     // Candlestick Charts
     let pricesWithDates = hiostories 
                             |> Seq.map (fun h -> 
                                 (h.BusinessDate.ToShortDateString(), h.HighPrice, h.LowPrice, h.OpenPrice, h.ClosePrice))
     // Candlestick chart price range specified
-    let chart = Chart.Candlestick(pricesWithDates).WithYAxis(Min = Convert.ToDouble min, Max = Convert.ToDouble max)
-
-    //let pricesWithDates = 
-    //    prices |> 
-    //    List.mapi (fun h -> 
-    //        (h.B.ToShortDateString(), h.hi, lo, op, cl))
-
-
+    
+    let chart = Chart.Combine([
+                                Chart.Candlestick(pricesWithDates) 
+                                Chart.Column(volumeWithDates,Name="Voulme") 
+                                ]).WithYAxis(
+                                    Min = Convert.ToDouble adjMinVol, 
+                                    Max = Convert.ToDouble max)
     Application.Run (chart.ShowChart())
     0

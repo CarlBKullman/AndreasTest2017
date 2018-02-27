@@ -179,40 +179,19 @@ open System.Linq
         oldhistories |>  Seq.iter (fun h -> 
                 printfn "reaadHistories: %s %A %i" h.StockID h.BusinessDate h.Volume)
 
-       // let db = DbConnection.DbSchema.GetDataContext()
-       
-
-        //printfn "Overvriew ============ Histories"
-        ////let oldDate = snd (System.DateTime.TryParse "1-1-2011")
-        //let _ , oldDate = System.DateTime.TryParse "1-1-2011"
-        //let histories333 = 
-        //    new DbConnection.DbSchema.ServiceTypes.History(StockID = "MSFT", BusinessDate = oldDate, Volume = 333) 
-        //let histories444 = 
-        //    new DbConnection.DbSchema.ServiceTypes.History(StockID = "INTC", BusinessDate = oldDate, Volume = 333) 
-        //overwriteHistory histories333
-        //printfn "overwriteHistory MSFT returns:"
-        //overwriteHistory histories444
-        //printfn "overwriteHistory INTC returns" 
-        //match System.DateTime.TryParse "1-1-2011" with
-        //| true, date -> printfn "Success: %A" date
-        //| false, _ -> printfn "Failed!"
-
         let stock = 
             new DbConnection.DbSchema.ServiceTypes.Stock(StockID = "xxx", Name = "yyy") 
-        //overwriteStock stock
 
+        //overwriteStock stock
         let MSFT = getStock ("MSFT")
         printfn "getStock returns: %A" MSFT   
 
         deleteStock stock
 //        Console.ReadLine() |> ignore
-
            
         getStocksLastBusinessDay
         |> Seq.iter (fun row ->  
             printfn "stock %s %O " row.StockID row.LastBusinessDay
         )
-
-
 
         0 // return an integer exit code

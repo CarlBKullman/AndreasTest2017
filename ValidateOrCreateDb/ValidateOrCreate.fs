@@ -1,13 +1,11 @@
 ﻿open System
-open System.Data
 open System.Data.Linq
-open System.Linq
 
-//open Microsoft.FSharp.Data.TypeProviders
-//open Microsoft.FSharp.Linq
 open DbConnection
 [<Literal>]
-//LastStockHistory is default -30 days from now. chage view definition when needed.
+
+
+
 let validateDb = 
         "IF OBJECT_ID (N'dbo.Stock', N'U') IS NOT NULL\n\
         BEGIN \n\
@@ -18,7 +16,7 @@ let validateDb =
       begin \n\
           print 'table Stock not found create new!' \n\
 		  CREATE TABLE dbo.Stock (\n\
-			StockID	     NVARCHAR(10)  NOT NULL,\n\
+			StockID	     NVARCHAR(10)  NOT NULL,\n\b
 			Name         NVARCHAR(4000)   NOT NULL,\n\
 			PRIMARY KEY (StockID)  \n\
 			)\n\
@@ -70,20 +68,26 @@ let validateDb =
             LEFT OUTER JOIN History ON Stock.StockID = History.StockID  \n\
             GROUP BY Stock.StockID  \n\
       end;"
+//LastStockHistory is default -30 days from now. chage view definition when needed. "DATEADD(DAY, -30, GETDATE()" above
 
 [<EntryPoint>]
 let main argv = 
     printfn "Ensure Database\n" 
 
     let db = DbConnection.DbSchema.GetDataContext()
+    
     // Enable the logging of database activity to the console.
     db.DataContext.Log <- System.Console.Out
+    
+    //Execure database initialization SQl statement, create 1->M simple datamoder Stock -> History 
+    //and view LastStockHistory with outer join to find latest dated history
 
+    
     try 
         db.DataContext.ExecuteCommand(validateDb) |> ignore
     with
     | exn -> printfn "Exception:\n%s" exn.Message
     printfn "Database validated\n"
-
-    // Console.ReadLine() |> ignore
-    0 // return an integer exit code
+    //may be there is way in f# to do data maping and buid DB from this, I am missing here
+    //Outer join view sonds more exlegant in SQL as in F# to code, this is why I use SQL view LastStockHistory
+    0 

@@ -4,7 +4,6 @@ open Suave
 open Suave.Filters
 open Suave.Operators
 open Suave.Writers
-open Suave.Successful
 
 [<EntryPoint>]
 let main argv = 
