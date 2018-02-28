@@ -58,7 +58,8 @@ let validateDb =
                 ArtistId INT NOT NULL,   \n\
                 GenreId  INT NOT NULL,  \n\
                 Title NVARCHAR(100) NOT NULL,   \n\
-                Price DEC(19,6) NOT NULL DEFAULT 0 \n\
+                Price DEC(19,6) NOT NULL DEFAULT 0, \n\
+    			PRIMARY KEY (AlbumId) \n\
         ) \n\
 			)\n\
     end; \n\

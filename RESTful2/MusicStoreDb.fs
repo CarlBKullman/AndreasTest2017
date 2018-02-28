@@ -34,8 +34,6 @@ Price DEC(19,6) NOT NULL DEFAULT 0
 *)
     type AlbumEntity = DbContext.Albums
     
-    //let private getContext() = Sql.GetDataContext()
-    //type AlbumEntity = DbConnection.DbSchema.ServiceTypes.Albums
     let firstOrNone s = s |> Seq.tryFind (fun _ -> true)
 
     let mapToAlbum (albumEntity :  AlbumEntity) =
@@ -64,12 +62,15 @@ Price DEC(19,6) NOT NULL DEFAULT 0
         getAlbumEntityById id 
         |> Option.map mapToAlbum
 
-    let createAlbum album =
+    let createAlbum_org album =
         let album = new AlbumEntity(AlbumId = album.AlbumId, ArtistId = album.ArtistId, GenreId = album.GenreId, Price = album.Price, Title = album.Title)
         db.Albums.InsertOnSubmit(album)
         db.DataContext.SubmitChanges()
         album |> mapToAlbum
 
+    let CreateAlbumList albumlist = 
+        printf "albumlist %A" albumlist
+        albumlist
     let updateAlbumById id album =
         let albumEntity = getAlbumEntityById album.AlbumId
         match albumEntity with
@@ -85,17 +86,36 @@ Price DEC(19,6) NOT NULL DEFAULT 0
     let updateAlbum album =
         updateAlbumById album.AlbumId album
 
+
     let deleteAlbum id =
+        printf "delete %i albumns" id
         let albumEntity = getAlbumEntityById id
         match albumEntity with
         | None -> ()
         | Some a ->
             db.Albums.DeleteOnSubmit(a)
             db.DataContext.SubmitChanges()
-
+    let delete () = 
+        printf "delete all albumns"
+        let albums = query { for row in db.Albums do select row }
+        db.Albums.AttachAll( albums)
+        db.Albums.DeleteAllOnSubmit(albums)
+        printf "deket all albumns"
+        db.DataContext.SubmitChanges()
+        
     let isAlbumExists id =
         let albumEntity = getAlbumEntityById id
         match albumEntity with
         | None -> false
         | Some _ -> true
+
+    let createAlbum album = 
+        let albumEntity = getAlbumEntityById album.AlbumId
+        match albumEntity with
+        | Some _ -> updateAlbum album |> ignore
+        | None -> 
+                let album = new AlbumEntity(AlbumId = album.AlbumId, ArtistId = album.ArtistId, GenreId = album.GenreId, Price = album.Price, Title = album.Title)
+                db.Albums.InsertOnSubmit(album)
+                db.DataContext.SubmitChanges()
+        album //|> mapToAlbum
     
